@@ -114,7 +114,7 @@ Another Message$^Duration
 
 The sample video shown above was generated with Discord's own proprietary font (`gg sans`), which is not available for public use. The default font used in this repository is `Whitney`. You can replace this font with any other font of your choice in the `assets/fonts/` directory with their appropriate `bold`, `medium`, `semibold`, and `italic` versions.
 
-To use `gg sans`, download the [`ggsans` folder](https://www.reddit.com/r/discordapp/comments/z9xcyk/comparison_and_download_for_discords_new_font_gg/) and add it to the `assets/fonts/` directory. Note that this font is not allowed for public use.
+To use `gg sans`, download the [`ggsans` folder](https://drive.google.com/drive/folders/1Zm8c2o-bStC7nsAGMXALdMVuCkU1hQFY?usp=drive_link) and add it to the `assets/fonts/` directory. Note that this font is not allowed for public use.
 
 If you do use it, make sure to change the value of `font` variable _(line no. 58)_ in `scripts/generate_chat.py` file to `"ggsans"`.
 
