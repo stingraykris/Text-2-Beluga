@@ -1,6 +1,6 @@
 # Text 2 Beluga 🎥💬
 
-Easily convert simple text files into full-fledged Beluga-style Discord conversation videos with a plethora of _text formatting options_, _sound effects_, and _much more customisation_ for ***free*** within ***feconds***!
+Easily convert simple text files into full-fledged Beluga-style Discord conversation videos with a plethora of _text formatting options_, _sound effects_, and _much more customisation_ for ***free*** within ***seconds***!
 
 https://github.com/user-attachments/assets/60af59bf-b32b-4a31-bfa6-6605c86457e2
 > Turn on sound to watch the full experience  |  **View on [YouTube](https://www.youtube.com/watch?v=QD5cZ_ZrM9g)**\
