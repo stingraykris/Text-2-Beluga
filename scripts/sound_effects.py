@@ -38,8 +38,12 @@ def add_sounds(filename):
                     duration += float(duration_part)
                 else:
                     duration += float(line.split('$^')[1])
-    composite_audio = CompositeAudioClip(audio_clips)
-    video = video.set_audio(composite_audio)
+                    
+    if len(audio_clips) > 0:
+        composite_audio = CompositeAudioClip(audio_clips)
+        video = video.set_audio(composite_audio)
+    else:
+        pass
+
     video.write_videofile("../final_video.mp4", codec="libx264", audio_codec="aac")
     os.remove("output.mp4")
-    
