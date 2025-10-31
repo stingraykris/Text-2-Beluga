@@ -123,4 +123,20 @@ If you do use it, make sure to change the value of `font` variable _(line no. 58
 ## TODO ✏️
 
 Refer to the [TODO list](NOTES.md) for upcoming features and improvements.\
-A Text-2-Beluga discord bot is my top priority as of now.
+
+
+## ☕ Support My Work
+If you find this project useful or just want to encourage future development, consider buying me a coffee (or a slice of pizza! 🍕). Any support is greatly appreciated!
+
+💰 Crypto Donations
+You can send a tip using the following cryptocurrencies:
+
+Bitcoin (BTC): bc1qdzcpv04275ka3rv7kg36676heqxcpqtyl0ehev
+
+Ethereum (ETH): 0xF5a1c455Cc448c0AD4c75984705630410d00CD65
+
+Dogecoin (DOGE): D5CgPtbq3Hf54HC2DGj8MkwEaLhkJPvBYw
+
+Binance Coin (BNB): bnb1u7chlfggj8a30p6d45m8crc34rlxydeh5gte95
+
+Thank you for your generosity! 🙏
