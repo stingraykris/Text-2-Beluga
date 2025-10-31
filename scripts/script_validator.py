@@ -1,8 +1,16 @@
-import os
 import sys
+import os
 import re
 import argparse
 from PyQt5.QtWidgets import QApplication, QFileDialog
+from pathlib import Path
+
+if getattr(sys, 'frozen', False):
+    BASE_DIR = Path(sys.executable).resolve().parent
+else:
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    
+SOUNDS_DIR = BASE_DIR / "assets" / "sounds" / "mp3"
 
 def get_filename():
     """Opens a file dialog and returns the selected filename."""
@@ -65,7 +73,7 @@ def validate_script_lines(lines):
                         dur_str = dur_str.strip()
                         sound_name = sound_marker.strip()
                         # Check that the sound effect file exists.
-                        sound_path = os.path.join("..", "assets", "sounds", "mp3", f"{sound_name}.mp3")
+                        sound_path = os.path.join(SOUNDS_DIR, f"{sound_name}.mp3")
                         if not os.path.isfile(sound_path):
                             errors.append(f"Line {idx}: Sound effect '{sound_name}' does not exist at expected location: {sound_path}")
                     else:

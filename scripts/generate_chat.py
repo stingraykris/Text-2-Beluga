@@ -1,12 +1,14 @@
+import sys
 from PIL import Image, ImageFont, ImageDraw
 from pilmoji import Pilmoji
-import sys
 import datetime
 import os
 import json
 import random
 import regex
 import re
+from pathlib import Path
+
 
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QFileDialog
@@ -56,17 +58,35 @@ MESSAGE_POSITIONS = [(MESSAGE_X, MESSAGE_Y_INIT + i * MESSAGE_DY) for i in range
 
 # Load fonts
 font = "whitney" # Change this according to the font you want to use
-name_font = ImageFont.truetype(os.path.join(f'../assets/fonts/{font}', 'semibold.ttf'), NAME_FONT_SIZE)
-time_font = ImageFont.truetype(os.path.join(f'../assets/fonts/{font}', 'semibold.ttf'), TIME_FONT_SIZE)
-message_font = ImageFont.truetype(os.path.join(f'../assets/fonts/{font}', 'medium.ttf'), MESSAGE_FONT_SIZE)
-message_italic_font = ImageFont.truetype(os.path.join(f'../assets/fonts/{font}', 'medium_italic.ttf'), MESSAGE_FONT_SIZE)
-message_bold_font = ImageFont.truetype(os.path.join(f'../assets/fonts/{font}', 'bold.ttf'), MESSAGE_FONT_SIZE)
-message_italic_bold_font = ImageFont.truetype(os.path.join(f'../assets/fonts/{font}', 'bold_italic.ttf'), MESSAGE_FONT_SIZE)
-message_mention_font = ImageFont.truetype(os.path.join(f'../assets/fonts/{font}', 'semibold.ttf'), MESSAGE_FONT_SIZE)
-message_mention_italic_font = ImageFont.truetype(os.path.join(f'../assets/fonts/{font}', 'semibold_italic.ttf'), MESSAGE_FONT_SIZE)
+
+if getattr(sys, 'frozen', False):
+    BASE_DIR = Path(sys.executable).resolve().parent
+else:
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    
+FONT_DIR = BASE_DIR / 'assets' / 'fonts' / font  # e.g., 'whitney'
+
+def load_font(filename, size, name="Font"):
+    path = FONT_DIR / filename
+    print(f"[{name}] Looking: {path}")
+    if not path.exists():
+        raise FileNotFoundError(f"{name} missing: {path}")
+    font = ImageFont.truetype(str(path), size)
+    print(f"[{name}] Loaded: {filename} (size {size})")
+    return font
+    
+# === LOAD ALL FONTS ===
+name_font = load_font('semibold.ttf', NAME_FONT_SIZE, "Name Font")
+time_font = load_font('semibold.ttf', TIME_FONT_SIZE, "Time Font")
+message_font = load_font('medium.ttf', MESSAGE_FONT_SIZE, "Message Font")
+message_italic_font = load_font('medium_italic.ttf', MESSAGE_FONT_SIZE, "Message Italic")
+message_bold_font = load_font('bold.ttf', MESSAGE_FONT_SIZE, "Message Bold")
+message_italic_bold_font = load_font('bold_italic.ttf', MESSAGE_FONT_SIZE, "Message Bold Italic")
+message_mention_font = load_font('semibold.ttf', MESSAGE_FONT_SIZE, "Mention Font")
+message_mention_italic_font = load_font('semibold_italic.ttf', MESSAGE_FONT_SIZE, "Mention Italic")
 
 # Load profile picture dictionary
-with open('../assets/profile_pictures/characters.json', encoding="utf8") as file:
+with open(BASE_DIR / 'assets' / 'profile_pictures' / 'characters.json', encoding="utf8") as file:
     characters_dict = json.load(file)
 
 
@@ -94,7 +114,8 @@ def generate_chat(messages, name_time, profpic_file, color):
     
     # Open and process profile picture
     prof_pic = Image.open(profpic_file)
-    prof_pic.thumbnail((sys.maxsize, PROFPIC_WIDTH), Image.ANTIALIAS)
+    #prof_pic.thumbnail((sys.maxsize, PROFPIC_WIDTH), Image.ANTIALIAS) 
+    prof_pic.thumbnail((sys.maxsize, PROFPIC_WIDTH), Image.LANCZOS) 
     mask = Image.new("L", prof_pic.size, 0)
     ImageDraw.Draw(mask).ellipse([(0, 0), (PROFPIC_WIDTH, PROFPIC_WIDTH)], fill=255)
     
@@ -199,7 +220,7 @@ def generate_joined_message(name, time, template_str, arrow_x, color=NAME_FONT_C
     template_img = Image.new(mode='RGBA', size=(WORLD_WIDTH, WORLD_HEIGHT_JOINED), color=WORLD_COLOR)
     draw_template = ImageDraw.Draw(template_img)
     
-    arrow = Image.open("../assets/green_arrow.png")
+    arrow = Image.open(BASE_DIR / 'assets' / 'green_arrow.png')
     arrow.thumbnail((40, 40))
     text_x = arrow_x + arrow.width + 60
 
@@ -260,7 +281,8 @@ def get_filename():
 
 
 def save_images(lines, init_time, dt=30):
-    os.makedirs('../chat', exist_ok=True)
+    CHAT_DIR = BASE_DIR / "chat"
+    CHAT_DIR.mkdir(exist_ok=True)
 
     name_up_next = True
     current_time = init_time
@@ -286,7 +308,8 @@ def save_images(lines, init_time, dt=30):
             joined_messages[line] = [random.choice(JOINED_TEXTS), random.randint(50, 80), current_time]
             hour = current_time.hour % 12 or 12
             image = generate_joined_message_stack(joined_messages, hour)
-            image.save(f'../chat/{msg_number:03d}.png')
+            output_path = CHAT_DIR / f"{msg_number:03d}.png"
+            image.save(str(output_path))
             current_time += datetime.timedelta(seconds=dt)
             msg_number += 1
             continue
@@ -301,13 +324,16 @@ def save_images(lines, init_time, dt=30):
             continue
 
         current_lines.append(line.split('$^')[0])
+        profile_pic_name = characters_dict[current_name]["profile_pic"]  # e.g. "perm/sana.jpeg"
+        profpic_file = BASE_DIR / 'assets' / 'profile_pictures' / profile_pic_name
         image = generate_chat(
             messages=current_lines,
             name_time=name_time,
-            profpic_file=os.path.join('../assets/profile_pictures', characters_dict[current_name]["profile_pic"]),
+            profpic_file=profpic_file,
             color=characters_dict[current_name]["role_color"]
         )
-        image.save(f'../chat/{msg_number:03d}.png')
+        output_path = CHAT_DIR / f"{msg_number:03d}.png"
+        image.save(str(output_path))
         current_time += datetime.timedelta(seconds=dt)
         msg_number += 1
 

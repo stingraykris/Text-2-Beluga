@@ -22,5 +22,53 @@
     "Cheddar": {
         "profile_pic": "perm/cheddar.png",
         "role_color": "#ff7878"
+    },
+    "KimJongun": {
+        "profile_pic": "perm/cheddar.png",
+        "role_color": "#ff7878"
+    },
+    "JoeBiden": {
+        "profile_pic": "perm/cheddar.png",
+        "role_color": "#ff7878"
+    },
+    "Modi": {
+        "profile_pic": "perm/cheddar.png",
+        "role_color": "#ff7878"
+    },
+    "Trump": {
+        "profile_pic": "perm/cheddar.png",
+        "role_color": "#ff7878"
+    },
+    "Elizabeth": {
+        "profile_pic": "perm/cheddar.png",
+        "role_color": "#ff7878"
+    },
+    "Hecker": {
+        "profile_pic": "perm/Hecker.png",
+        "role_color": "#9cffa1"
+    },
+    "Sys32": {
+        "profile_pic": "perm/Sys32.png",
+        "role_color": "#ffcc6e"
+    },
+    "Admin": {
+        "profile_pic": "perm/Admin.png",
+        "role_color": "#f2b8ff"
+    },
+    "Chef": {
+        "profile_pic": "perm/Admin.png",
+        "role_color": "#f2b8ff"
+    },
+    "Astronaut": {
+        "profile_pic": "perm/Sys32.png",
+        "role_color": "#ffcc6e"
+    },
+    "Librarian": {
+        "profile_pic": "perm/cheddar.png",
+        "role_color": "#ff7878"
+    },
+    "Robot": {
+        "profile_pic": "perm/cheddar.png",
+        "role_color": "#f2b8ff"
     }
 }

@@ -2,9 +2,12 @@
 - fix only emojis message template
 - fix timestamp not incrementing in joined messages
 - fix timestamp on message incrementing when not needed
-- optimize code
-- make a script validator
-- good cmd-line user interface
+- Improve script validator
+- good Visual user interface
+- Add Chractor via Visual User Interface
+- Add Sound via Visual User Interface
+- Validat Script Before Generate Video 
+- Visual Script Editor 
 - write a README file
 
 ----------------------------------------------------
@@ -14,8 +17,6 @@
 - ability to add background music
 - AI powered chat script creator
 - support for links (URLs)
-- Text2Beluga discord bot
-- improve script_validator.py
 
 ----------------------------------------------------
 
